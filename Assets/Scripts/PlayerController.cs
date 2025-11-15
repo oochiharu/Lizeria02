@@ -22,8 +22,8 @@ namespace Lizeria02
             }
 
             body.gravityScale = 0f;
-            body.drag = 8f;
-            body.angularDrag = 0f;
+            body.linearDamping = 8f;
+            body.angularDamping = 0f;
             body.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             if (!TryGetComponent(out Collider2D collider))
@@ -56,8 +56,8 @@ namespace Lizeria02
 
         private void FixedUpdate()
         {
-            var newVelocity = Vector2.Lerp(body.velocity, desiredVelocity, smoothing * Time.fixedDeltaTime);
-            body.velocity = newVelocity;
+            var newVelocity = Vector2.Lerp(body.linearVelocity, desiredVelocity, smoothing * Time.fixedDeltaTime);
+            body.linearVelocity = newVelocity;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -71,7 +71,7 @@ namespace Lizeria02
         public void ResetPlayer(Vector3 position)
         {
             transform.position = position;
-            body.velocity = Vector2.zero;
+            body.linearVelocity = Vector2.zero;
         }
     }
 }
